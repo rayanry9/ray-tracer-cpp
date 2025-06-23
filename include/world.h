@@ -1,17 +1,21 @@
-#ifndef RayTracerWorld
-#define RayTracerWorld
+#pragma once
 
+#include <functional>
 #include <vector>
 
 #include "camera.h"
-#include "ray.h"
+
+class Mesh;
+class Object;
 
 class World {
  private:
   std::vector<Camera> cameraList;
-  std::vector<Object> meshList;
+  std::vector<std::reference_wrapper<Mesh>> meshList;
   std::vector<Object> lightList;
-  std::vector<Ray> rayList;
-};
 
-#endif  // !RayTracerWorld
+ public:
+  World();
+  const std::vector<std::reference_wrapper<Mesh>>& getMeshList() const;
+  void addMesh(Mesh& mesh);
+};

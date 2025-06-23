@@ -1,6 +1,6 @@
-#ifndef RayTracerVector3
-#define RayTracerVector3
+#pragma once
 
+#include <ostream>
 class Vector3 {
  private:
   double e[3]{};
@@ -8,13 +8,15 @@ class Vector3 {
  public:
   Vector3(double x = 0.0, double y = 0.0, double z = 0.0);
 
-  const double& x() const;
-  const double& y() const;
-  const double& z() const;
+  double x() const;
+  double y() const;
+  double z() const;
 
   Vector3& operator+=(const Vector3& v);
 
   Vector3& operator-=(const Vector3& v);
+
+  Vector3 operator-() const;
 
   double length() const;
 
@@ -26,6 +28,8 @@ class Vector3 {
 
   Vector3 cross(const Vector3& v) const;
 
+  friend std::ostream& operator<<(std::ostream& out, const Vector3& vec);
+
   friend Vector3 operator+(const Vector3& v1, const Vector3& v2);
   friend Vector3 operator+(const Vector3& v1, const double& scalar);
   friend Vector3 operator-(const Vector3& v1, const Vector3& v2);
@@ -33,5 +37,3 @@ class Vector3 {
   friend Vector3 operator*(const Vector3& v1, const double& scalar);
   friend Vector3 operator/(const Vector3& v1, const double& scalar);
 };
-
-#endif  // RayTracerVector3

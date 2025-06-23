@@ -12,3 +12,11 @@ project(
 
 include_directories("${PROJECT_SOURCE_DIR}/include")
 add_subdirectory(src)
+
+add_custom_target(
+  get_image
+  COMMAND make
+  COMMAND echo "Generating Image"
+  COMMAND ./bin/ray_tracer > image.ppm
+  COMMAND xdg-open image.ppm
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR})

@@ -1,20 +1,17 @@
-#include <iostream>
-#include <ostream>
+#include "camera.h"
+#include "sphere.h"
+#include "vector3.h"
+#include "world.h"
 
 int main() {
-  const int image_width{256};
-  const int image_height{256};
+  Camera cam1{
+      Vector3{0, 0, 0}, Vector3{1, 0, 0}, Vector3{0, -1, 0}, 16.0 / 9, 400, 90};
+  World world{};
+  Sphere s1{Vector3{10, 0, 0}, Color{255, 165, 0}, 4};
 
-  std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+  world.addMesh(s1);
 
-  for (int j = 0; j < image_height; j++) {
-    std::clog << "\rScanlines remaining: " << (image_height - j) << ' '
-              << std::flush;
-    for (int i = 0; i < image_width; i++) {
-    }
-  }
-
-  std::clog << "\rDone.                 \n";
-
+  cam1.castRays(world);
+  cam1.printImage();
   return 0;
 }

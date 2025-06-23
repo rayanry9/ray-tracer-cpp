@@ -1,5 +1,4 @@
-#ifndef RayTracerMesh
-#define RayTracerMesh
+#pragma once
 
 #include "vector3.h"
 
@@ -13,5 +12,3 @@ class Object {
   const Vector3& getPosition() const;
   void setPosition(const Vector3& pos);
 };
-
-#endif  // !Mesh

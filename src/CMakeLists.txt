@@ -11,18 +11,26 @@ target_link_libraries(object PUBLIC vector3)
 
 add_library(camera STATIC ./camera.cpp "${PROJECT_SOURCE_DIR}/include/camera.h")
 target_include_directories(camera PUBLIC "${PROJECT_SOURCE_DIR}/include")
-target_link_libraries(camera PUBLIC object vector3)
+target_link_libraries(camera PUBLIC object vector3 ray world color)
 
 add_library(ray STATIC ./ray.cpp "${PROJECT_SOURCE_DIR}/include/ray.h")
 target_include_directories(ray PUBLIC "${PROJECT_SOURCE_DIR}/include")
-target_link_libraries(ray PUBLIC object vector3)
+target_link_libraries(ray PUBLIC object mesh world color vector3)
+
+add_library(mesh STATIC ./mesh.cpp "${PROJECT_SOURCE_DIR}/include/mesh.h")
+target_include_directories(mesh PUBLIC "${PROJECT_SOURCE_DIR}/include")
+target_link_libraries(mesh PUBLIC object vector3 ray color)
 
 add_library(world STATIC ./world.cpp "${PROJECT_SOURCE_DIR}/include/world.h")
 target_include_directories(world PUBLIC "${PROJECT_SOURCE_DIR}/include")
-target_link_libraries(world PUBLIC ray object camera vector3)
+target_link_libraries(world PUBLIC mesh camera)
+
+add_library(sphere STATIC ./sphere.cpp "${PROJECT_SOURCE_DIR}/include/sphere.h")
+target_include_directories(sphere PUBLIC "${PROJECT_SOURCE_DIR}/include")
+target_link_libraries(sphere PUBLIC color mesh ray vector3)
 
 add_executable(ray_tracer ./main.cpp)
-target_link_libraries(ray_tracer PUBLIC vector3 color world ray)
+target_link_libraries(ray_tracer PUBLIC camera sphere vector3 world)
 
 set_target_properties(ray_tracer PROPERTIES RUNTIME_OUTPUT_DIRECTORY
                                             ${CMAKE_BINARY_DIR}/bin)
