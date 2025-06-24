@@ -1,5 +1,8 @@
 #pragma once
 
+#include <optional>
+#include <tuple>
+
 #include "color.h"
 #include "object.h"
 #include "ray.h"
@@ -12,6 +15,7 @@ class Mesh : public Object {
  public:
   Mesh(const Vector3& pos = Vector3{}, const Color& col = Color{});
 
-  const Color& getColor() const;
-  virtual bool doesRayIntersect(const Ray& ray) const = 0;
+  virtual const Color& getColor() const;
+  virtual std::optional<std::tuple<Vector3, Vector3>> rayIntersection(
+      const Ray& ray) const = 0;
 };

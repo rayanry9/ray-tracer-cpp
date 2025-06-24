@@ -15,37 +15,39 @@ Camera::Camera(const Vector3& pos, const Vector3& dir, const Vector3& left,
                const double ar, const int width, const double f)
     : Object{pos},
       direction(dir.normalise()),
-      aspectRatio{ar},
-      imageWidth{width},
-      imageHeight{int(width / ar)},
-      pixels{ulong(width), std::vector<Color>(imageHeight)},
+      aspect_ratio{ar},
+      image_width{width},
+      image_height{int(width / ar)},
+      pixels{ulong(width), std::vector<Color>(image_height)},
       fov{f},
-      viewportTopLeft(pos + dir.normalise() +
-                      (left.normalise() * (double(imageWidth) / imageHeight) *
-                       std::tan(std::numbers::pi * fov / 360)) +
-                      (left.cross(dir).normalise() *
-                       std::tan(std::numbers::pi * fov / 360))),
-      viewportDeltaDown(-left.cross(dir).normalise() * 2.0 *
-                        std::tan(std::numbers::pi * fov / 360) / imageHeight),
-      viewportDeltaRight(-left.normalise() * 2.0 *
-                         (double(imageWidth) / imageHeight) *
-                         std::tan(std::numbers::pi * fov / 360) / imageWidth) {
-  std::clog << viewportTopLeft << " " << viewportDeltaDown << ' '
-            << viewportDeltaRight << '\n'
-            << imageWidth << ' ' << imageHeight << '\n'
-            << std::tan(std::numbers::pi * fov / 360) << '\n';
-};
+      viewport_top_left(
+          pos + dir.normalise() +
+          (left.normalise() * (double(image_width) / image_height) *
+           std::tan(std::numbers::pi * fov / 360)) +
+          (left.cross(dir).normalise() *
+           std::tan(std::numbers::pi * fov / 360))),
+      viewport_delta_down(-left.cross(dir).normalise() * 2.0 *
+                          std::tan(std::numbers::pi * fov / 360) /
+                          image_height),
+      viewport_delta_right(
+          -left.normalise() * 2.0 * (double(image_width) / image_height) *
+          std::tan(std::numbers::pi * fov / 360) / image_width) {
+        // std::clog << viewportTopLeft << " " << viewportDeltaDown << ' '
+        //           << viewportDeltaRight << '\n'
+        //           << imageWidth << ' ' << imageHeight << '\n'
+        //           << std::tan(std::numbers::pi * fov / 360) << '\n';
+      };
 
 void Camera::castRays(const World& world) {
-  std::clog << viewportDeltaDown * imageHeight << ' '
-            << viewportDeltaRight * imageWidth << '\n';
-  for (int j = 0; j < imageHeight; j++) {
-    for (int i = 0; i < imageWidth; i++) {
+  // std::clog << viewportDeltaDown * imageHeight << ' '
+  //           << viewportDeltaRight * imageWidth << '\n';
+  for (int j = 0; j < image_height; j++) {
+    for (int i = 0; i < image_width; i++) {
       pixels[i][j] = Ray{this->getPosition(),
-                         viewportTopLeft + viewportDeltaRight * i +
-                             viewportDeltaDown * j - this->getPosition(),
-                         Color{0, 0, 139} * (1 - double(j) / imageHeight) +
-                             Color{173, 216, 230} * (double(j) / imageHeight)}
+                         viewport_top_left + viewport_delta_right * i +
+                             viewport_delta_down * j - this->getPosition(),
+                         Color{0, 0, 139} * (1 - double(j) / image_height) +
+                             Color{173, 216, 230} * (double(j) / image_height)}
                          .cast(world)
                          .getColor();
     }
@@ -53,9 +55,9 @@ void Camera::castRays(const World& world) {
 }
 
 void Camera::printImage() const {
-  std::cout << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
-  for (int j = 0; j < imageHeight; j++) {
-    for (int i = 0; i < imageWidth; i++) {
+  std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+  for (int j = 0; j < image_height; j++) {
+    for (int i = 0; i < image_width; i++) {
       std::cout << pixels[i][j];
     }
   }

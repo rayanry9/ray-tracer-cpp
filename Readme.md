@@ -1,0 +1,5 @@
+## Ray Tracer in C++
+
+Implemented a ray tracer in c++ to learn c++.
+
+Took help of [Ray Tracer in a Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html#wherenext?/nextsteps/book2:raytracing:thenextweek) for domain knowledge.
