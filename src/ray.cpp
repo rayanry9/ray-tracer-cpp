@@ -1,7 +1,6 @@
 #include "ray.h"
 
 #include <functional>
-#include <iostream>
 
 #include "color.h"
 #include "mesh.h"

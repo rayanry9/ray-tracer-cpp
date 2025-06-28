@@ -1,8 +1,6 @@
-
 #include "plane.h"
 
 #include <cstdlib>
-#include <iostream>
 #include <optional>
 #include <tuple>
 

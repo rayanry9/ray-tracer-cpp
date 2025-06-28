@@ -25,7 +25,7 @@ int main() {
 
   world.addMesh(p1);
 
-  Light l1{Vector3{10, 10, 30}};
+  Light l1{Vector3{1, 10, 10}};
   world.addLight(l1);
 
   cam1.castRays(world);
