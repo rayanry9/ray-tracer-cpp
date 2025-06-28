@@ -1,4 +1,4 @@
-## Ray Tracer in C++
+## Ray Tracer in C++ ( In Progess )
 
 Implemented a ray tracer in c++ to learn c++.
 
