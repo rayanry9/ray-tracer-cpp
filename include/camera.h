@@ -23,7 +23,7 @@ class Camera : public Object {
 
  public:
   Camera(const Vector3& pos = Vector3{},
-         const Vector3& direction = Vector3{1, 0, 0},
+         const Vector3& look_at = Vector3{1, 0, 0},
          const Vector3& left = Vector3{0, -1, 0},
          const double aspect_ratio = 16.0 / 9, const int image_width = 400,
          const double fov = 90);

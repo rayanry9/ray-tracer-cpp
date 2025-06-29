@@ -119,3 +119,7 @@ Color Color::changeLuminance(double l) const {
 std::ostream& operator<<(std::ostream& out, const Color& c) {
   return out << c.c[0] << ' ' << c.c[1] << ' ' << c.c[2] << '\n';
 };
+
+bool operator==(const Color& c1, const Color& c2) {
+  return (c1.c[0] == c2.c[0] && c1.c[1] == c2.c[1] && c1.c[2] == c2.c[2]);
+};

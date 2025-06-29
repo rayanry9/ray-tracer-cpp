@@ -29,6 +29,7 @@ class Vector3 {
   Vector3 cross(const Vector3& v) const;
 
   friend std::ostream& operator<<(std::ostream& out, const Vector3& vec);
+  friend bool operator==(const Vector3& v1, const Vector3& v2);
 
   friend Vector3 operator+(const Vector3& v1, const Vector3& v2);
   friend Vector3 operator+(const Vector3& v1, const double& scalar);

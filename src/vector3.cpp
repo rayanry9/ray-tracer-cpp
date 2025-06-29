@@ -68,3 +68,7 @@ Vector3 operator/(const Vector3& v1, const double& scalar) {
 std::ostream& operator<<(std::ostream& out, const Vector3& vec) {
   return out << vec.e[0] << ' ' << vec.e[1] << ' ' << vec.e[2];
 };
+
+bool operator==(const Vector3& v1, const Vector3& v2) {
+  return (v1.x() == v2.x() && v1.y() == v2.y() && v1.z() == v2.z());
+};

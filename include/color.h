@@ -17,4 +17,5 @@ class Color {
   friend Color operator+(const Color& col1, const Color& col2);
 
   friend std::ostream& operator<<(std::ostream& out, const Color& c);
+  friend bool operator==(const Color& c1, const Color& c2);
 };

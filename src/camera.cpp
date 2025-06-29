@@ -11,22 +11,22 @@
 #include "vector3.h"
 #include "world.h"
 
-Camera::Camera(const Vector3& pos, const Vector3& dir, const Vector3& left,
+Camera::Camera(const Vector3& pos, const Vector3& look_at, const Vector3& left,
                const double ar, const int width, const double f)
     : Object{pos},
-      direction(dir.normalise()),
+      direction((look_at - pos).normalise()),
       aspect_ratio{ar},
       image_width{width},
       image_height{int(width / ar)},
       pixels{ulong(width), std::vector<Color>(image_height)},
       fov{f},
       viewport_top_left(
-          pos + dir.normalise() +
+          pos + direction.normalise() +
           (left.normalise() * (double(image_width) / image_height) *
            std::tan(std::numbers::pi * fov / 360)) +
-          (left.cross(dir).normalise() *
+          (left.cross(direction).normalise() *
            std::tan(std::numbers::pi * fov / 360))),
-      viewport_delta_down(-left.cross(dir).normalise() * 2.0 *
+      viewport_delta_down(-left.cross(direction).normalise() * 2.0 *
                           std::tan(std::numbers::pi * fov / 360) /
                           image_height),
       viewport_delta_right(

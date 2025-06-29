@@ -41,12 +41,29 @@ Ray& Ray::cast(const World& world) {
       double l{0.0};
 
       for (auto light : world.getLightList()) {
-        const double dot_val =
-            norm.dot(-(pos - light.get().getPosition()).normalise());
-        if (dot_val < 0) {
-          l = 0;
+        Ray toLightSource{pos, (light.get().getPosition() - pos).normalise(),
+                          mesh.get().getColor()};
+        bool isLightRayIntersected{false};
+        for (auto subMesh : world.getMeshList()) {
+          if (subMesh == mesh) {
+            continue;
+          }
+          if (subMesh.get().rayIntersection(toLightSource).has_value()) {
+            isLightRayIntersected = true;
+            break;
+          }
+        }
+
+        if (isLightRayIntersected) {
+          l = 0.2;
         } else {
-          l = dot_val;
+          const double dot_val =
+              norm.dot(-(pos - light.get().getPosition()).normalise());
+          if (dot_val < 0) {
+            l = 0;
+          } else {
+            l = dot_val;
+          }
         }
       }
 
